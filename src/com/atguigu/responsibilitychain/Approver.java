@@ -14,7 +14,21 @@ public abstract class Approver {
 		this.approver = approver;
 	}
 	
-	//处理审批请求的方法，得到一个请求, 处理是子类完成，因此该方法做成抽象
-	public abstract void processRequest(PurchaseRequest purchaseRequest);
+	// 模板方法：处理审批请求
+	public final void processRequest(PurchaseRequest purchaseRequest) {
+		if (canHandle(purchaseRequest)) {
+			handle(purchaseRequest);
+		} else if (approver != null) {
+			approver.processRequest(purchaseRequest);
+		}
+	}
+
+	// 子类实现：能否处理该请求
+	protected abstract boolean canHandle(PurchaseRequest purchaseRequest);
+
+	// 默认处理逻辑，子类可覆盖
+	protected void handle(PurchaseRequest purchaseRequest) {
+		System.out.println(" 请求编号 id= " + purchaseRequest.getId() + " 被 " + this.name + " 处理");
+	}
 	
 }
