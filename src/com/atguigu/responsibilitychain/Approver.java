@@ -3,10 +3,9 @@ package com.atguigu.responsibilitychain;
 public abstract class Approver {
 
 	Approver approver;  //下一个处理者
-	String name; // 名字
+	String name; // 当前处理者的名字
 	
 	public Approver(String name) {
-		// TODO Auto-generated constructor stub
 		this.name = name;
 	}
 
